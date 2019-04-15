@@ -1,41 +1,14 @@
+//Areka Panwar
+
 #include<iostream>
 #include "person.h"
 #include "person.cpp"
 #include<string>
 #include<fstream>
+#include <vector>
 using namespace std;
 
-
-int readData(Person emparray[], int size){
-
-  string firstname;
-  string lastname;
-  double hoursworked;
-  double payrate;
-  int i = 0;
-  
-  
-  ifstream inFile;
-  inFile.open("input.txt");
-  while (inFile && i < size) {
-    inFile >> firstname >> lastname >> hoursworked >> payrate;
-    emparray[i].setFirstName(firstname);
-    emparray[i].setLastName(lastname);
-    emparray[i].setHoursWorked(hoursworked);
-    emparray[i].setPayRate(payrate);
-    i++;
-  }
-
-  i--;
-  
-
-  inFile.close();
-
-
-  return i;
-}
-
-void writeData(Person filledArray[], int size){
+void writeData(vector<Person> filledArray, int size){
   ofstream outFile;
   outFile.open("output.txt");
   for(int i =0; i < size; i++){
@@ -45,16 +18,49 @@ void writeData(Person filledArray[], int size){
 
   outFile.close();
 }
+
+void readData(vector<Person> emp){
+
+  string firstname;
+  string lastname;
+  double hoursworked;
+  double payrate;
+  
+  
+  
+  ifstream inFile;
+  inFile.open("input.txt");
+  while ( inFile >> firstname >> lastname >> hoursworked >> payrate) {
+    //inFile >> firstname >> lastname >> hoursworked >> payrate;
+    // Person newperson(firstname, lastname, payrate, hoursworked);
+    
+    emp.emplace_back(firstname, lastname, payrate, hoursworked);
+   
+  }
+
+
+  
+
+  inFile.close();
+
+  writeData(emp, emp.size());
+
+
+
+}
+
+
   
 
 
 
 int main() {
 
-  Person employees[20];
+  vector<Person>  employees;
+  
+  readData(employees);
+  
 
-  int arraysize = readData(employees, 20);
-  writeData(employees, arraysize);
 
 
   return 0;

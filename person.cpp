@@ -1,11 +1,11 @@
 #include "person.h"
 #include<string>
 
-Person::Person() {
-  lastName = " ";
-  firstName = " ";
-  payRate = 0;
-  hoursWorked = 0;
+Person::Person(string fName, string lName, float rate, float hours) {
+  lastName = lName;
+  firstName = fName;
+  payRate = rate;
+  hoursWorked = hours;
 }
 
 
